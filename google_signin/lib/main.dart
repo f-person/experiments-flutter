@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleSignInAccount _currentUser;
 
   @override
-  void initState() {
+  void initState() async {
     googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
@@ -41,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     googleSignIn.signInSilently();
     super.initState();
+    GoogleSignInAuthentication googleAuth = await _currentUser.authentication;
+    print(googleAuth.idToken);
   }
 
   @override
